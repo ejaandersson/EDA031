@@ -20,7 +20,6 @@ private:
     const id number;
     std::string title, author;
     std::unique_ptr<std::string> text;
-    
 };
 
 #endif /* ARTICLE_H */
