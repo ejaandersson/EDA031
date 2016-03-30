@@ -1,25 +1,23 @@
-/* 
- * File:   Article.h
- * Author: Thoron
- *
- * Created on march 29, 2016, 16:11
- */
+#ifndef ARTICLE_H
+#define ARTICLE_H
 
 #include <memory>
 #include <string>
 
-#ifndef ARTICLE_H
-#define ARTICLE_H
-
 class Article {
 public:
-    Article(std::string t, std::string a, std::string te) : title(t), author(a), text(new std::string(te)) {}
-    Article(const Article& orig) = delete;
+    using id = unsigned int;
+    
+    Article(id nbr, std::string titl, std::string auth, std::string txt) : number(nbr), title(titl), author(auth), text(new std::string(txt)) {}
     virtual ~Article();
     
-    std::string getTitle() {return title;}
+    id getId() const {return number;}
+    std::string getTitle() const {return title;}
+    std::string getAuthor() const {return author;}
+    const std::string& getText() const {return *text;}
     
 private:
+    const id number;
     std::string title, author;
     std::unique_ptr<std::string> text;
     
