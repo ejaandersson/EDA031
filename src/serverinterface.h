@@ -12,7 +12,7 @@ public:
      * Lists all the news groups on the server.
      * Returns a vector containing id numbers and names for all the news groups. 
      */
-    virtual std::vector<pair<id, std::string>> list_ng() const = 0;
+    virtual std::vector<std::pair<id, std::string>> list_ng() const = 0;
     
     /*
      * Creates a new news group.
