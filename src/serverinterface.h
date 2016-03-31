@@ -1,10 +1,11 @@
 #ifndef SERVERINTERFACE_H
 #define	SERVERINTERFACE_H
 
+
 #include <string>
 #include <vector>
-#include <memory>
 #include <utility>
+#include "article.h"
 
   using id = unsigned int; 
   
@@ -37,10 +38,10 @@ public:
     virtual std::vector<std::pair<id, std::string>> listArt(id ng) const = 0;
     
     /*
-     * Creates a new article in news group ng.
+     * Adds a new article in news group ng.
      * Returns true if the article was successfully added to ng.
      */
-    virtual bool create_art(id ng, std::string& title, std::string& author, std::string& text) = 0;
+    virtual bool add_art(id ng, Article& a) = 0;
     
     /*
      * Deletes an article.
@@ -50,11 +51,10 @@ public:
     
     /*
      * Get an article.
-     * Returns an array containing title, author and text in that
-     *  order starting at position zero through two.
+     * Returns a pointer to an article
      * Returns nullptr if nothing was found
      */
-    virtual const std::shared_ptr<std::string> read_art(id ng, id art) const = 0;
+    virtual const Article* read_art(id ng, id art) const = 0;
     
 private:
 
