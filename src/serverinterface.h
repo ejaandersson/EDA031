@@ -31,7 +31,7 @@ public:
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
      */
-    virtual std::vector<pair<id, std::string>> listArt(id ng) const = 0;
+    virtual std::vector<std::pair<id, std::string>> listArt(id ng) const = 0;
     
     /*
      * Creates a new article in news group ng.
