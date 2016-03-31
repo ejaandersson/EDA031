@@ -2,6 +2,9 @@
 #define	SERVERINTERFACE_H
 
 #include <string>
+#include <vector>
+#include <memory>
+#include <utility>
 
   using id = unsigned int; 
   
@@ -12,7 +15,7 @@ public:
      * Lists all the news groups on the server.
      * Returns a vector containing id numbers and names for all the news groups. 
      */
-    virtual std::vector<std::pair<id, std::string>> list_ng() const = 0;
+    virtual std::vector<std::pair<id,std::string>> list_ng() const = 0;
     
     /*
      * Creates a new news group.
@@ -51,7 +54,7 @@ public:
      *  order starting at position zero through two.
      * Returns nullptr if nothing was found
      */
-    virtual const char* read_art(id ng, id art) const = 0;
+    virtual const std::shared_ptr<std::string> read_art(id ng, id art) const = 0;
     
 private:
 
