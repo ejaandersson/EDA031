@@ -11,13 +11,13 @@ public:
     explicit InMemoryServer(int port) : Server(port), number(0) {}
     virtual ~InMemoryServer();
     
-    virtual std::vector<std::pair<id,std::string> > list_ng() const;
-    virtual id create_ng(std::string name);
-    virtual bool delete_ng(id ng);
-    virtual std::vector<std::pair<id, std::string> > listArt(id ng) const;
-    virtual bool create_art(id ng, Article&);
-    virtual bool delete_art(id ng, id art);
-    virtual const Article* read_art(id ng, id art) const;
+    virtual std::vector<std::pair<id,std::string> > list_ng() const override;
+    virtual id create_ng(std::string) override;
+    virtual bool delete_ng(id) override;
+    virtual std::vector<std::pair<id, std::string> > listArt(id) const override;
+    virtual bool add_art(id, Article&) override;
+    virtual bool delete_art(id, id) override;
+    virtual const Article* read_art(id, id) const override;
     
 private:
     id number;
