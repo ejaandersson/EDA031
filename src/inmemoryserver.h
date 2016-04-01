@@ -12,7 +12,7 @@ public:
     virtual ~InMemoryServer();
     
     virtual std::vector<std::pair<id,std::string> > list_ng() const override;
-    virtual id create_ng(std::string) override;
+    virtual id create_ng(std::string&) override;
     virtual bool delete_ng(id) override;
     virtual std::vector<std::pair<id, std::string> > listArt(id) const override;
     virtual bool add_art(id, Article&) override;

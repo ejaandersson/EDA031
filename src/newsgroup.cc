@@ -12,8 +12,8 @@ bool Newsgroup::delete_art(id nbr){
 }
 
 const Article* Newsgroup::get_art(id nbr) const{
-    auto a = articles.find(nbr);
-    return a != articles.end() ? &a->second : nullptr;
+    auto a = articles.find(nbr); 
+    return a != articles.end() ? &a->second : nullptr; 
 }
 
 vector<pair<id, string>> Newsgroup::list_art() const{

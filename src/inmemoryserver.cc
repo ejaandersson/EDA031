@@ -8,6 +8,9 @@ using namespace std;
      */
     vector<pair<id,string>> InMemoryServer::list_ng() const{
         vector<pair<id,string>> v;
+        v.reserve(newsgroups.size());
+        for (const auto& kv : newsgroups)
+            v.push_back(make_pair(kv.first, kv.second.getName()));
         return v;
     }
     
@@ -16,8 +19,11 @@ using namespace std;
      * Returns the id number of the newly created news group if successful, 
      * otherwise 0 if the name was already taken.
      */
-    id InMemoryServer::create_ng(string name){
-        return 0;
+    id InMemoryServer::create_ng(string& name){
+        if(!ng_names.insert(name).second)
+            return 0;
+        newsgroups.insert(make_pair(++number, Newsgroup(name)));
+        return number;
     }
     
     /*
@@ -41,7 +47,7 @@ using namespace std;
      * Creates a new article in news group ng.
      * Returns true if the article was successfully added to ng.
      */
-    bool InMemoryServer::create_art(id ng, Article& a){
+    bool InMemoryServer::add_art(id ng, Article& a){
         return false;
     }
     

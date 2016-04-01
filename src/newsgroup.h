@@ -15,8 +15,9 @@ public:
     
     id add_art(Article a);
     bool delete_art(id nubr);
+    const std::string& getName() const {return name;}
     const Article* get_art(id nbr) const;
-    std::vector<std::pair<id, std::string>> list_art() const;
+    std::vector<std::pair<id, std::string> > list_art() const;
 
 private:
     std::string name;
