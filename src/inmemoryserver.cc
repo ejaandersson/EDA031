@@ -41,7 +41,7 @@ using namespace std;
      * Creates a new article in news group ng.
      * Returns true if the article was successfully added to ng.
      */
-    bool InMemoryServer::create_art(id ng, string& title, string& author, string& text){
+    bool InMemoryServer::create_art(id ng, Article& a){
         return false;
     }
     
@@ -59,6 +59,6 @@ using namespace std;
      *  order starting at position zero through two.
      * Returns nullptr if nothing was found
      */
-    virtual shared_ptr<const string> InMemoryServer::read_art(id ng, id art) const {
+    const Article* InMemoryServer::read_art(id ng, id art) const {
         return nullptr;
     }

@@ -16,7 +16,7 @@ public:
      * Lists all the news groups on the server.
      * Returns a vector containing id numbers and names for all the news groups. 
      */
-    virtual std::vector<std::pair<id,std::string>> list_ng() const = 0;
+    virtual std::vector<std::pair<id,std::string> > list_ng() const = 0;
     
     /*
      * Creates a new news group.
@@ -35,7 +35,7 @@ public:
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
      */
-    virtual std::vector<std::pair<id, std::string>> listArt(id ng) const = 0;
+    virtual std::vector<std::pair<id, std::string> > listArt(id ng) const = 0;
     
     /*
      * Adds a new article in news group ng.
@@ -51,8 +51,8 @@ public:
     
     /*
      * Get an article.
-     * Returns a pointer to an article
-     * Returns nullptr if nothing was found
+     * Returns a pointer to the article.
+     * Returns nullptr if nothing was found.
      */
     virtual const Article* read_art(id ng, id art) const = 0;
     

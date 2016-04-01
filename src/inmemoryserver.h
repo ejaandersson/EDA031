@@ -11,13 +11,13 @@ public:
     explicit InMemoryServer(int port) : Server(port), number(0) {}
     virtual ~InMemoryServer();
     
-    virtual std::vector<std::pair<id,std::string>> list_ng() const;
+    virtual std::vector<std::pair<id,std::string> > list_ng() const;
     virtual id create_ng(std::string name);
     virtual bool delete_ng(id ng);
-    virtual std::vector<std::pair<id, std::string>> listArt(id ng) const;
-    virtual bool create_art(id ng, std::string& title, std::string& author, std::string& text);
+    virtual std::vector<std::pair<id, std::string> > listArt(id ng) const;
+    virtual bool create_art(id ng, Article&);
     virtual bool delete_art(id ng, id art);
-    virtual const std::shared_ptr<const std::string> read_art(id ng, id art) const;
+    virtual const Article* read_art(id ng, id art) const;
     
 private:
     id number;
