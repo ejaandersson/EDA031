@@ -2,7 +2,7 @@
 
 using namespace std;
 
-id Newsgroup::add_art(Article a){
+id Newsgroup::add_art(Article& a){
     articles.insert(make_pair(++number, a));
     return number;
 }

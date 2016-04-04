@@ -23,7 +23,7 @@ public:
      * Returns the id number of the newly created news group if successful, 
      * otherwise 0 if the name was already taken.
      */
-    virtual id create_ng(std::string name) = 0;
+    virtual id create_ng(std::string& name) = 0;
     
     /*
      * Deletes a news group from the server.

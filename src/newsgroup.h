@@ -13,7 +13,7 @@ public:
     Newsgroup(std::string n) : name(n), number(0) {};
     virtual ~Newsgroup(){};
     
-    id add_art(Article a);
+    id add_art(Article& a);
     bool delete_art(id nubr);
     const std::string& getName() const {return name;}
     const Article* get_art(id nbr) const;
