@@ -6,18 +6,18 @@
 #include "newsgroup.h"
 #include <set>
 
-class InMemoryServer : public Server, public ServerInterface {
+class InMemoryServer : public ServerInterface, public Server {
 public:
     explicit InMemoryServer(int port) : Server(port), number(0) {}
     virtual ~InMemoryServer();
     
-    virtual std::vector<std::pair<id,std::string>> list_ng() const override;
-    virtual id create_ng(std::string&) override;
-    virtual bool delete_ng(id) override;
-    virtual std::vector<std::pair<id, std::string> > listArt(id) const override;
-    virtual bool add_art(id, Article&) override;
-    virtual bool delete_art(id, id) override;
-    virtual const Article* read_art(id, id) const override;
+    std::vector<std::pair<id,std::string>> list_ng() const override;
+    id create_ng(std::string&) override;
+    bool delete_ng(id) override;
+    std::vector<std::pair<id, std::string> > listArt(id) const override;
+    bool add_art(id, const std::shared_ptr<Article>&) override;
+    bool delete_art(id, id) override;
+    std::shared_ptr<const Article> read_art(id, id) const override;
     
 private:
     id number;

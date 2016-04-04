@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 #include "article.h"
+#include <memory>
 
   using id = unsigned int; 
   
@@ -41,7 +42,7 @@ public:
      * Adds a new article in news group ng.
      * Returns true if the article was successfully added to ng.
      */
-    virtual bool add_art(id ng, Article& a) = 0;
+    virtual bool add_art(id ng, const std::shared_ptr<Article>&) = 0;
     
     /*
      * Deletes an article.
@@ -54,7 +55,7 @@ public:
      * Returns a pointer to the article.
      * Returns nullptr if nothing was found.
      */
-    virtual const Article* read_art(id ng, id art) const = 0;
+    virtual std::shared_ptr<const Article> read_art(id ng, id art) const = 0;
     
 private:
 

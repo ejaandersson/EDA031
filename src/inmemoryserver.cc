@@ -45,16 +45,16 @@ using namespace std;
     vector<pair<id, string>> InMemoryServer::listArt(id ng) const {
         auto it = newsgroups.find(ng);
         if (it == newsgroups.end()) {
-          //If the newsgroup dosen't exist, do something... Not safe at the moment.
+          //return nullptr;
         }
-        return it->second.list_art();
+        return  it->second.list_art();
     }
     
     /*
      * Creates a new article in news group ng.
      * Returns true if the article was successfully added to ng.
      */
-    bool InMemoryServer::add_art(id ng, Article& a) {
+    bool InMemoryServer::add_art(id ng, const shared_ptr<Article> &a) {
         auto it = newsgroups.find(ng);
         if (it == newsgroups.end()) {
           return false;
@@ -81,7 +81,7 @@ using namespace std;
      *  order starting at position zero through two.
      * Returns nullptr if nothing was found
      */
-    const Article* InMemoryServer::read_art(id ng, id art) const {
+    shared_ptr<const Article> InMemoryServer::read_art(id ng, id art) const {
         auto it = newsgroups.find(ng);
         if (it == newsgroups.end()) {
           return nullptr;
