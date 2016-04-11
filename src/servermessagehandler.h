@@ -1,7 +1,6 @@
 #ifndef SERVERMESSAGEHANDLER_H
 #define SERVERMESSAGEHANDLER_H
 
-#include <string>
 
 class ServerMessageHandler {
 public:
