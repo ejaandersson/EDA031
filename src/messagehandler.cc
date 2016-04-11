@@ -4,8 +4,8 @@
 
 #include "protocol.h"
 #include "connection.h"
-#include "exceptions/connection_closed_exception.h"
-#include "exceptions/illegalcommandexception.h"
+#include "../exceptions/connectionclosedexception.h"
+#include "../exceptions/illegalcommandexception.h"
 
 
 using namespace std;

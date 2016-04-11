@@ -1,11 +1,11 @@
 #include <string>
 #include <vector>
-#include "../common/exception/illegalcommandexception.h"
-#include "../common/exception/newsgroupnonexistantexception.h"
-#include "../common/exception/news_group_already_exists_exception.h"
-#include "../common/exception/articlenonexistantexception.h"
-#include "server_command_handler.h"
-#include "../common/protocol.h"
+#include "../exception/illegalcommandexception.h"
+#include "../exception/newsgroupnonexistantexception.h"
+#include "../exception/newsgroupalreadyexists_exception.h"
+#include "../exception/articlenonexistantexception.h"
+#include "servermessagehandler.h"
+#include "protocol.h"
 #include "inmemoryserver.h"
 
 using namespace std;
