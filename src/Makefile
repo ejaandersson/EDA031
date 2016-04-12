@@ -1,39 +1,37 @@
-# Define the compiler and the linker. The linker must be defined since
-# the implicit rule for linking uses CC as the linker. g++ can be
+#
+# Makefile to make the file libclientserver.a, containing
+# connection.o and server.o
+#
+# Define the compiler. g++ can be
 # changed to clang++.
 CXX = g++
 CC  = g++
 
 # Define preprocessor, compiler, and linker flags. Uncomment the # lines
-# if you use clang++ and wish to use libc++ instead of libstd++.
-CPPFLAGS  = -std=c++11 -I..
-CXXFLAGS  = -g -O2 -Wall -W -pedantic-errors
-CXXFLAGS += -Wmissing-braces -Wparentheses -Wold-style-cast 
+# if you use clang++ and wish to use libc++ instead of libstdc++.
+CPPFLAGS =  -std=c++11
+CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast 
 CXXFLAGS += -std=c++11 
-LDFLAGS   = -g -L..
-#CPPFLAGS += -stdlib=libc++
+CXXFLAGS += -g
+#CXXFLAGS =  -stdlib=libc++
+#CPPFLAGS =  -stdlib=libc++
 #CXXFLAGS += -stdlib=libc++
-#LDFLAGS +=  -stdlib=libc++
 
-# Libraries
-LDLIBS = -lclientserver
+all: libclientserver.a
 
-# Targets
-PROGS = myserver myclient
+# Create the library; ranlib is for Darwin (OS X) and maybe other systems.
+# Doesn't seem to do any damage on other systems.
 
-all: $(PROGS)
-
-# Targets rely on implicit rules for compiling and linking
-# The dependency on libclientserver.a is not defined.
-myserver: myserver.o  
-myclient: myclient.o
+libclientserver.a: connection.o server.o
+	ar rv libclientserver.a  connection.o server.o
+	ranlib libclientserver.a
 
 # Phony targets
 .PHONY: all clean
 
 # Standard clean
 clean:
-	rm -f *.o $(PROGS)
+	rm -f *.o libclientserver.a
 
 # Generate dependencies in *.d files
 %.d: %.cc

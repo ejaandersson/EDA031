@@ -1,5 +1,5 @@
 #include "connection.h"
-#include "connectionclosedexception.h"
+#include "exceptions/connectionclosedexception.h"
 #include "messagehandler.h"
 
 #include <algorithm>

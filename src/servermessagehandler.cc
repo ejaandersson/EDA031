@@ -2,7 +2,7 @@
 #include <vector>
 #include "exceptions/illegalcommandexception.h"
 #include "exceptions/newsgroupnonexistantexception.h"
-#include "exceptions/newsgroupalreadyexists_exception.h"
+#include "exceptions/newsgroupalreadyexistsexception.h"
 #include "exceptions/articlenonexistantexception.h"
 #include "servermessagehandler.h"
 #include "protocol.h"
