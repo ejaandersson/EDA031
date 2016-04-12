@@ -1,9 +1,9 @@
 #include <string>
 #include <vector>
-#include "../exception/illegalcommandexception.h"
-#include "../exception/newsgroupnonexistantexception.h"
-#include "../exception/newsgroupalreadyexists_exception.h"
-#include "../exception/articlenonexistantexception.h"
+#include "exceptions/illegalcommandexception.h"
+#include "exceptions/newsgroupnonexistantexception.h"
+#include "exceptions/newsgroupalreadyexists_exception.h"
+#include "exceptions/articlenonexistantexception.h"
 #include "servermessagehandler.h"
 #include "protocol.h"
 #include "inmemoryserver.h"
