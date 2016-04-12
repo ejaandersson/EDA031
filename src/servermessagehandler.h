@@ -4,7 +4,7 @@
 
 class ServerMessageHandler {
 public:
-		
+		ServerMessageHandler(MessageHandler&, Server&);
 		void newMessage();
 		void listGroups();
 		void createGroup();
@@ -14,6 +14,9 @@ public:
 		void deleteArticle();
 		void getArticle();
 		void checkEnd();
+private:
+  MessageHandler msgH;
+  Server server;
 };
 
 #endif

@@ -11,7 +11,7 @@
 using namespace std;
 
 
-ServerMessageHandler::ServerMessageHandler(MessageHandler& msgHandler, InMemoryServer inmemoryserver) : msgH(msgHandler), inmemoryserver(ims) {}
+ServerMessageHandler::ServerMessageHandler(MessageHandler& msgHandler, Server& server) : msgH(msgHandler), server(server) {}
 
 void ServerMessageHandler::newMessage() {
 	uint command = msgH.getCode();
@@ -52,7 +52,7 @@ void ServerMessageHandler::newMessage() {
 void ServerMessageHandler::listGroups() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_LIST_NG);
-	vector<NewsGroup> newsGroups = ims.list_ng();
+	vector<NewsGroup> newsGroups = server.list_ng();
 	msgH.sendIntParam(newsGroups.size());
 
 	for (auto it = newsGroups.begin(); it != newsGroups.end(); ++it) {
@@ -66,7 +66,7 @@ void ServerMessageHandler::createGroup() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_CREATE_NG);
 	try {
-		ims.create_ng(title);
+		server.create_ng(title);
 		msgH.sendCode(Protocol::ANS_ACK);
 	} catch (NewsGroupAlreadyExistsException& e) {
 		msgH.sendCode(Protocol::ANS_NAK);
@@ -79,7 +79,7 @@ void ServerMessageHandler::deleteGroup() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_DELETE_NG);
 	try {
-		ims.delete_ng(ngInt);
+		server.delete_ng(ngInt);
 		msgH.sendCode(Protocol::ANS_ACK);
 	} catch (NewsGroupNonexistanException& e) {
 		msgH.sendCode(Protocol::ANS_NAK);
@@ -92,7 +92,7 @@ void ServerMessageHandler::listArticles() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_LIST_ART);
 	try {
-		vector<Article> articles = ims.listArt(ngInt);
+		vector<Article> articles = server.listArt(ngInt);
 		msgH.sendCode(Protocol::ANS_ACK);
 		msgH.sendIntParam(articles.size());
 		for(auto it = articles.begin(); it != articles.end(); ++it) {
@@ -114,7 +114,7 @@ void ServerMessageHandler::createArticle() {
 	msgH.sendCode(Protocol::ANS_CREATE_ART);
 	Article article(title, author, text);
 	try {
-		ims.add_art(ngInt, article);
+		server.add_art(ngInt, article);
 		msgH.sendCode(Protocol::ANS_ACK);
 	} catch (NewsGroupDoesNotExistException& e) {
 		msgH.sendCode(Protocol::ANS_NAK);
@@ -128,7 +128,7 @@ void ServerMessageHandler::deleteArticle() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_DELETE_ART);
 	try {
-		ims.delete_art(ngInt, article);
+		server.delete_art(ngInt, article);
 		msgH.sendCode(Protocol::ANS_ACK);
 	} catch (NewsGroupNonexistanException& e) {
 		msgH.sendCode(Protocol::ANS_NAK);
@@ -145,7 +145,7 @@ void ServerMessageHandler::getArticle() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_GET_ART);
 	try {
-		Article article = ims.read_art(ngInt, article);
+		Article article = server.read_art(ngInt, article);
 		msgH.sendCode(Protocol::ANS_ACK);
 		msgH.sendStrParam(article.title);
 		msgH.sendStrParam(article.author);
