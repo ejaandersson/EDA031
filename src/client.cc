@@ -47,7 +47,9 @@ int main(int argc, char* argv[]) {
 			  break;
 			}
 		case "deleteng" :
-		  cmh.deleteGroup(ID???);
+		  cout << "Newsgroup id number: " << endl;
+		  int group_id << cin; //kolla om int..?
+		  cmh.deleteGroup(group_id);
 		  break;
 		case : "readart" :
 		  string artInfo = cmh.getArticle(gruppID, artID);
