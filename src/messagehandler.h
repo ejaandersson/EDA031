@@ -2,16 +2,21 @@
 #define MESSAGEHANDLER_H
 
 #include <string>
-
+#include "protocol.h"
 #include "connection.h"
+#include "connectionclosedexception.h"
+#include "illegalcommandexception.h"
+#include "newsgroupalreadyexistsexception.h"
+#include "newsgroupnonexistantexception.h"
+#include "articlenonexistantexception.h"
 
 using namespace std;
 
-struct IllegalCommandException {};
+//struct IllegalCommandException {};
 
 class MessageHandler {
 public:
-	explicit MessageHandler(net::Connection &conn);
+	explicit MessageHandler(Connection &conn);
 	
 	void newConnection(const Connection& conn);
 	

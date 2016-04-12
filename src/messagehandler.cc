@@ -2,15 +2,10 @@
 #include <string>
 #include "messagehandler.h"
 
-#include "protocol.h"
-#include "connection.h"
-#include "exceptions/connectionclosedexception.h"
-#include "exceptions/illegalcommandexception.h"
-
 
 using namespace std;
 
-Message::MessageHandler(){}
+MessageHandler::MessageHandler(){}
 
 /**
  Create a message handler through a connection.

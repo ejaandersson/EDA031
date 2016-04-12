@@ -1,5 +1,3 @@
-#include "clientmessagehandler.h"
-#include "protocol.h"
 using namespace std;
 
 ClientMessageHandler::ClientMessageHandler(){}

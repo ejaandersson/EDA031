@@ -2,19 +2,30 @@
 #define CLIENTMESSAGEHANDLER_H
 
 #include <string>
+#include <vector>
+#include "protocol.h"
+#include "clientmessagehandler.h"
+#include "connectionclosedexception.h"
+#include "illegalcommandexception.h"
+#include "newsgroupalreadyexistsexception.h"
+#include "newsgroupnonexistantexception.h"
+#include "articlenonexistantexception.h"
 
 
 class ClientMessageHandler {
 public:
-		vector<string> listGroups() throw(ConnectionClosedException, IllegalCommandException);
-		int createGroup(string title) throw(ConnectionClosedException, IllegalCommandException)
-		int deleteGroup(int groupId)  throw (ConnectionClosedException, IllegalCommandException);
-		vector<string> listArticles(int groupId) throw (ConnectionClosedException, NewsGroupNonexistantException, ArticleNonexistantException, IllegalCommandException);
-		int createArticle(int groupId, string title, string author, string text) throw(ConnectionClosedException, IllegalCommandException);
+    ClientMessageHandler();
+    ClientMessageHandler(MessageHandler& mh);
+		std::vector<std::string> listGroups() throw(ConnectionClosedException, IllegalCommandException);
+		int createGroup(std::string title) throw(ConnectionClosedException, IllegalCommandException);
+		int deleteGroup(int groupId) throw (ConnectionClosedException, IllegalCommandException);
+		std::vector<std::string> listArticles(int groupId) throw (ConnectionClosedException, NewsGroupNonexistantException, ArticleNonexistantException, IllegalCommandException);
+		int createArticle(int groupId, std::string title, std::string author, std::string text) throw(ConnectionClosedException, IllegalCommandException);
 		int deleteArticle(int groupId, int articleId) throw(ConnectionClosedException, IllegalCommandException);
-		vector<string> getArticle(int groupId, int articleId) throw(ConnectionClosedException, NewsGroupNonexistantException, ArticleNonexistantException, IllegalCommandException);
-		void checkCode (string method, int expectedCode, int code) throw(IllegalCommandException);
-		void checkCondition(bool condition, string method, string message) throw(IllegalCommandException);
-		
+		std::vector<std::string> getArticle(int groupId, int articleId) throw(ConnectionClosedException, NewsGroupNonexistantException, ArticleNonexistantException, IllegalCommandException);
+		void checkCode (std::string method, int expectedCode, int code) throw(IllegalCommandException);
+		void checkCondition(bool condition, std::string method, std::string message) throw(IllegalCommandException);
+private:
+  MessageHandler messageHandler;
 };
 #endif
