@@ -22,16 +22,39 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 
-	cout << "Connection works if you can see this :)" << endl;
-
+	//cout << "Connection works if you can see this :)" << endl;
+	cout << "Connected to server." << endl;
+	messagehandler mh;
+	clientmessagehandler cmh(mh);
+	
 	string command;
-
 	while (cin >> command) {
 		try {
-			if (command == "hej") {
-				cout << command << endl;
+			switch (command) {
+			case "help" :
+			  cout << "Ut med helpen" << endl;
+			  break;
+			case "listng" :           //temporära namn. finns troligen bättre...
+			  vector<string> names = cmh.listGroups();
+			  for (string s& : names)
+			    cout << s << endl;
+			  break;
+			case "createng" :
+			  cout << "Choose newsgroup name: " << endl;
+			  string title;
+			  cin >> title;
+			  cmh.createGroup(title);
+			  break;
 			}
-		} catch (ConnectionClosedException&) {
+		case "deleteng" :
+		  cmh.deleteGroup(ID???);
+		  break;
+		case : "readart" :
+		  string artInfo = cmh.getArticle(gruppID, artID);
+		  cout << "Title:  " << artInfo[0] << ". Author:  " << artInfo[1] << endl;
+		  cout << artInfo[2] << endl;
+		  break;
+		  } catch (ConnectionClosedException&) {
 			cerr << "Server closed down!" << endl;
 			exit(1);
 		}
