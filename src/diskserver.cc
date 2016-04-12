@@ -52,4 +52,4 @@ DiskServer::DiskServer(const DiskServer& orig) {
      */
     std::shared_ptr<const Article> read_art(id ng, id art) const = 0;
     
-    
+    test
