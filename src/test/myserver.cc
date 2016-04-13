@@ -1,8 +1,10 @@
+#include "inmemoryserver.h"
 #include "server.h"
 #include "connection.h"
 #include "connectionclosedexception.h"
 #include "messagehandler.h"
 #include "servermessagehandler.h"
+
 
 #include <memory>
 #include <iostream>
@@ -28,27 +30,28 @@ int main(int argc, char* argv[]){
   }
   
   //If-sats som bestammer vilken typ av server.
-  InMemoryServer server(port);
+  InMemoryServer* s = new InMemoryServer(port);
+  shared_ptr<ServerInterface> serverptr(s);
   
-  if (!server.isReady()) {
+  if (!serverptr->isReady()) {
     cerr << "Server initialization error." << endl;
     exit(1);
   }
   
   while (true) {
-    auto conn = server.waitForActivity();
+    auto conn = serverptr->waitForActivity();
     if (conn != nullptr) {
       try {
-        MessageHandler mh(*conn);
-        ServerMessageHandler smh(shared_ptr<MessageHandler>(mh), shared_ptr<ServerInterface>(server));
+        shared_ptr<MessageHandler> msgptr = make_shared<MessageHandler>(MessageHandler(shared_ptr<Connection>(conn)));
+        ServerMessageHandler smh(msgptr, serverptr);
         smh.newMessage();
       } catch (ConnectionClosedException&) {
-        server.deregisterConnection(conn);
+        serverptr->deregisterConnection(conn);
         cout << "Client closed connection" << endl;
       }
     } else {
       conn = make_shared<Connection>();
-      server.registerConnection(conn);
+      serverptr->registerConnection(conn);
       cout << "New client connects" << endl;
     }
   }

@@ -10,15 +10,15 @@
 class ServerMessageHandler {
 public:
 		ServerMessageHandler(std::shared_ptr<MessageHandler>, std::shared_ptr<ServerInterface>);
-		void newMessage();
-		void listGroups();
-		void createGroup();
-		void deleteGroup();
-		void listArticles();
-		void createArticle();
-		void deleteArticle();
-		void getArticle();
-		void checkEnd();
+		int newMessage(void) throw(IllegalCommandException);
+		void listGroups(void);
+		void createGroup(void);
+		void deleteGroup(void);
+		void listArticles(void);
+		void createArticle(void);
+		void deleteArticle(void);
+		void getArticle(void);
+		void checkEnd(void);
 private:
   std::shared_ptr<MessageHandler> msgH;
   std::shared_ptr<ServerInterface> server;

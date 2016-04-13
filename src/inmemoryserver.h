@@ -8,7 +8,7 @@
 class InMemoryServer : public ServerInterface {
 public:
     explicit InMemoryServer(int port) : ServerInterface(port), number(0) {}
-    virtual ~InMemoryServer();
+    virtual ~InMemoryServer(){};
     
     std::vector<std::pair<id,std::string>> list_ng() const override;
     id create_ng(std::string&) override;

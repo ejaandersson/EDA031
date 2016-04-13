@@ -45,7 +45,7 @@ using namespace std;
     vector<pair<id, string>> InMemoryServer::listArt(id ng) const {
         auto it = newsgroups.find(ng);
         if (it == newsgroups.end()) {
-          //return nullptr;
+          return vector<pair<id, string>>();
         }
         return  it->second.list_art();
     }
@@ -90,6 +90,9 @@ using namespace std;
     }
     
     bool InMemoryServer::exists_ng(id ng) {
+      if (newsgroups.empty()) {
+        return false;
+      }
       auto it = newsgroups.find(ng);
       if (it == newsgroups.end()) {
         return false;
