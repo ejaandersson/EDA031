@@ -5,30 +5,29 @@
 
 using namespace std;
 
-MessageHandler::MessageHandler(){}
 
 /**
  Create a message handler through a connection.
  @param conn is the connection message handler handles messages through (Bättre kommentar går inte hitta)
 */
 
-MessageHandler::MessageHandler(const Connection &conn) : conn(conn) {}
+MessageHandler::MessageHandler(shared_ptr<Connection> conn) : conn(conn) {}
 
 /**
 Change connection.
 @param conn is the new Connection object
 
 */
-void MessageHandler::newConnection(const Connection& conn) : conn(conn) {
-	this->conn = conn;
-}
+//void MessageHandler::newConnection(const Connection& conn) {
+//	this->conn = conn;
+//}
 
 /**
 Sends a code corresponding to a constant from the Protocol class.
 @param code is the code to send.
 @throws ConnectionClosedException if the server is dead.
 */
-void MessageHandler::sendCode(int code) {
+void MessageHandler::sendCode(int code) throw(ConnectionClosedException) {
 	sendByte(code);
 }
 
@@ -38,11 +37,11 @@ Sends an int parameter following the Protocol
 @throws ConnectionClosedException if connection was lost.
 */
 
-void MessageHandler::sendInt(int value) {
+void MessageHandler::sendInt(int value) throw(ConnectionClosedException) {
 	sendByte((value << 24) & 0xFF);
 	sendByte((value << 16) & 0xFF);
 	sendByte((value << 8 ) & 0xFF);
-	sendByte((value & 0xFF);
+	sendByte((value & 0xFF));
 }
 
 
@@ -51,7 +50,7 @@ Sends an int parameter following the Protocol
 @param i is the integer to be sent
 @throws ConnectionClosedException if connection was lost
 */
-void MessageHandler::sendIntParam(int i) {
+void MessageHandler::sendIntParam(int i) throw(ConnectionClosedException) {
 	sendCode(Protocol::PAR_NUM);
 	sendInt(i);
 }
@@ -63,7 +62,7 @@ Sends a string parameter following the Protocol
 @throws ConnectionClosedException if connection was lost.
 */
 
-void MessageHandler::sendStrParam(const string& str) {
+void MessageHandler::sendStrParam(const string& str) throw(ConnectionClosedException) {
 	sendCode(Protocol::PAR_STRING);
 	sendInt(str.length());
 	for (int i = 0; i < str.length(); i++) {
@@ -78,7 +77,7 @@ Gets an int value
 @throws ConnectionClosedException if connection was lost
 */
 
-int MessageHandler::getInt() {
+int MessageHandler::getInt() throw(ConnectionClosedException) {
 	int byte1 = getByte();
 	int byte2 = getByte();
 	int byte3 = getByte()
@@ -94,7 +93,7 @@ Gets an int parameter.
 @throws IllegalCommandException
 */
 
-int MessageHandler::getIntParam() {
+int MessageHandler::getIntParam() throw(ConnectionClosedException, IllegalCommandException) {
 	int code = getCode();
 	if (code != Protocol:PAR_NUM) {
 		throw IllegalCommandException("Get integer parameter", Protocol::PAR_NUM, code);
@@ -111,7 +110,7 @@ Gets a string parameter.
 @throws IllegalCommandException
 */
 
-string MessageHandler::getStrParam() {
+string MessageHandler::getStrParam() throw(ConnectionClosedException, IllegalCommandException) {
 	int code = getCode();
 	if (code != Protocol::PAR_STRING) {
 		throw IllegalCommandException("Get string parameter", Protocol::PAR_STRING, code);
@@ -122,7 +121,7 @@ string MessageHandler::getStrParam() {
 	}
 	string result = "";
 	for (int i = 1; i <= n; i++) {
-		char ch = conn.read();
+		char ch = conn->read();
 		result += ch;
 	}
 	return result;
@@ -145,7 +144,7 @@ int MessageHandler::getCode() {
 int MessageHandler::getByte() {
 	int code;
 	try {
-		code = conn.read();
+		code = conn->read();
 	} catch (...) {
 		throw ConnectionClosedException();
 	}
@@ -157,7 +156,7 @@ int MessageHandler::getByte() {
 */
 void MessageHandler::sendByte(int code) {
 	try {
-		conn.write(static_cast<char>(code));
+		conn->write(static_cast<char>(code));
 	} catch(...) {
 		throw ConnectionClosedException();
 	}

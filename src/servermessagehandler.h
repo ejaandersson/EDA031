@@ -9,7 +9,7 @@
 
 class ServerMessageHandler {
 public:
-		ServerMessageHandler(MessageHandler&, std::shared_ptr<ServerInterface>&);
+		ServerMessageHandler(std::shared_ptr<MessageHandler>, std::shared_ptr<ServerInterface>);
 		void newMessage();
 		void listGroups();
 		void createGroup();
@@ -20,7 +20,7 @@ public:
 		void getArticle();
 		void checkEnd();
 private:
-  MessageHandler msgH;
+  std::shared_ptr<MessageHandler> msgH;
   std::shared_ptr<ServerInterface> server;
 };
 

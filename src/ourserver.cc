@@ -40,7 +40,7 @@ int main(int argc, char* argv[]){
     if (conn != nullptr) {
       try {
         MessageHandler mh(*conn);
-        ServerMessageHandler smh(mh, shared_ptr<ServerInterface>(server));
+        ServerMessageHandler smh(shared_ptr<MessageHandler>(mh), shared_ptr<ServerInterface>(server));
         smh.newMessage();
       } catch (ConnectionClosedException&) {
         server.deregisterConnection(conn);
