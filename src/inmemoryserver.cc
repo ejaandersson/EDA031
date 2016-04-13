@@ -88,3 +88,11 @@ using namespace std;
         }
         return it->second.get_art(art);
     }
+    
+    bool InMemoryServer::exists_ng(id ng) {
+      auto it = newsgroups.find(ng);
+      if (it == newsgroups.end()) {
+        return false;
+      }
+      return true;
+    }
