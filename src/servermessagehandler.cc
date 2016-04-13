@@ -144,7 +144,7 @@ void ServerMessageHandler::getArticle() {
 	int article = msgH.getIntParam();
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_GET_ART);
-	try {
+	try { //fel typar
 		Article article = server.read_art(ngInt, article);
 		msgH.sendCode(Protocol::ANS_ACK);
 		msgH.sendStrParam(article.title);

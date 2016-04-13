@@ -12,16 +12,14 @@ MessageHandler::MessageHandler(){}
  @param conn is the connection message handler handles messages through (Bättre kommentar går inte hitta)
 */
 
-MessageHandler::MessageHandler(const Connection &conn) {
-	this->conn = conn;
-}
+MessageHandler::MessageHandler(const Connection &conn) : conn(conn) {}
 
 /**
 Change connection.
 @param conn is the new Connection object
 
 */
-void MessageHandler::newConnection(const Connection& conn) {
+void MessageHandler::newConnection(const Connection& conn) : conn(conn) {
 	this->conn = conn;
 }
 

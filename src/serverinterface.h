@@ -40,9 +40,10 @@ public:
     
     /*
      * Adds a new article in news group ng.
-     * Returns true if the article was successfully added to ng.
+     * Returns the id number of the inserted article if successful,
+     * otherwise 0 if the newsgroup id coudln't be found.
      */
-    virtual bool add_art(id ng, const std::shared_ptr<Article>&) = 0;
+    virtual id add_art(id ng, const std::shared_ptr<Article>&) = 0;
     
     /*
      * Deletes an article.
