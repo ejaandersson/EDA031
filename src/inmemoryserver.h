@@ -1,14 +1,13 @@
 #ifndef INMEMORYSERVER_H
 #define INMEMORYSERVER_H
 
-#include "server.h"
 #include "serverinterface.h"
 #include "newsgroup.h"
 #include <set>
 
-class InMemoryServer : public ServerInterface, public Server {
+class InMemoryServer : public ServerInterface {
 public:
-    explicit InMemoryServer(int port) : Server(port), number(0) {}
+    explicit InMemoryServer(int port) : ServerInterface(port), number(0) {}
     virtual ~InMemoryServer();
     
     std::vector<std::pair<id,std::string>> list_ng() const override;

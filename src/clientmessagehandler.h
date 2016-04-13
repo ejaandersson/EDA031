@@ -7,10 +7,6 @@
 #include "clientmessagehandler.h"
 #include "connectionclosedexception.h"
 #include "illegalcommandexception.h"
-#include "newsgroupalreadyexistsexception.h"
-#include "newsgroupnonexistantexception.h"
-#include "articlenonexistantexception.h"
-
 
 class ClientMessageHandler {
 public:

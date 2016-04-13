@@ -1,6 +1,6 @@
 #include "connection.h"
 #include "protocol.h"
-#include "exceptions/connectionclosedexception.h"
+#include "connectionclosedexception.h"
 #include "messagehandler.h"
 #include "clientmessagehandler.h"
 #include <algorithm>

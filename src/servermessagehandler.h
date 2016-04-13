@@ -1,12 +1,15 @@
 #ifndef SERVERMESSAGEHANDLER_H
 #define SERVERMESSAGEHANDLER_H
 
+#include <memory>
 #include "illegalcommandexception.h"
+#include "messagehandler.h"
+#include "serverinterface.h"
 
 
 class ServerMessageHandler {
 public:
-		ServerMessageHandler(MessageHandler&, Server&);
+		ServerMessageHandler(MessageHandler&, std::shared_ptr<ServerInterface>&);
 		void newMessage();
 		void listGroups();
 		void createGroup();
@@ -18,7 +21,7 @@ public:
 		void checkEnd();
 private:
   MessageHandler msgH;
-  Server server;
+  std::shared_ptr<ServerInterface> server;
 };
 
 #endif

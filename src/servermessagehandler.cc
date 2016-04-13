@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <utility>
 #include "servermessagehandler.h"
 #include "protocol.h"
 #include "inmemoryserver.h"
@@ -7,7 +8,7 @@
 using namespace std;
 
 
-ServerMessageHandler::ServerMessageHandler(MessageHandler& msgHandler, Server& server) : msgH(msgHandler), server(server) {}
+ServerMessageHandler::ServerMessageHandler(MessageHandler& msgHandler, shared_ptr<ServerInterface>& s) : msgH(msgHandler), server(s) {}
 
 void ServerMessageHandler::newMessage() {
 	uint command = msgH.getCode();
@@ -48,12 +49,12 @@ void ServerMessageHandler::newMessage() {
 void ServerMessageHandler::listGroups() {
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_LIST_NG);
-	vector<NewsGroup> newsGroups = server.list_ng();
+	vector<pair<id, string>> newsGroups = server->list_ng();
 	msgH.sendIntParam(newsGroups.size());
 
 	for (auto it = newsGroups.begin(); it != newsGroups.end(); ++it) {
-		msgH.sendIntParam(it->id);
-		msgH.sendStrParam(it->name);
+		msgH.sendIntParam(it->first);
+		msgH.sendStrParam(it->second);
 	}
 }
 
@@ -61,12 +62,12 @@ void ServerMessageHandler::createGroup() {
 	string title = msgH.getStrParam();
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_CREATE_NG);
-	try {
-		server.create_ng(title);
+	id res = server->create_ng(title);
+	if (id != 0){
 		msgH.sendCode(Protocol::ANS_ACK);
-	} catch (NewsGroupAlreadyExistsException& e) {
-		msgH.sendCode(Protocol::ANS_NAK);
-		msgH.sendCode(Protocol::ERR_NG_ALREADY_EXISTS);
+	} else {
+	  msgH.sendCode(Protocol::ANS_NAK);
+	  msgH.sendCode(Protocol::ERR_NG_ALREADY_EXISTS);
 	}
 }
 
@@ -74,10 +75,9 @@ void ServerMessageHandler::deleteGroup() {
 	int ngInt = msgH.getIntParam();
 	checkEnd();
 	msgH.sendCode(Protocol::ANS_DELETE_NG);
-	try {
-		server.delete_ng(ngInt);
-		msgH.sendCode(Protocol::ANS_ACK);
-	} catch (NewsGroupNonexistanException& e) {
+  if (server->delete_ng(ngInt)){
+    msgH.sendCode(Protocol::ANS_ACK);
+  } else {
 		msgH.sendCode(Protocol::ANS_NAK);
 		msgH.sendCode(Protocol::ERR_NG_DOES_NOT_EXIST);
 	}

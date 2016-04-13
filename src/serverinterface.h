@@ -5,13 +5,17 @@
 #include <string>
 #include <vector>
 #include <utility>
-#include "article.h"
 #include <memory>
+#include "article.h"
+#include "server.h"
+
 
   using id = unsigned int; 
   
-class ServerInterface {
+class ServerInterface : public Server {
 public:
+    
+    ServerInterface(int port) : Server(port) {}
     
     /*
      * Lists all the news groups on the server.
