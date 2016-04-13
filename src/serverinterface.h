@@ -62,6 +62,12 @@ public:
      */
     virtual std::shared_ptr<const Article> read_art(id ng, id art) const = 0;
     
+    /*
+    * Checks if a newsgroup exists.
+    * Returns true id it does.
+    */
+    virtual bool exists_ng(id ng) = 0;
+    
 private:
 
 };
