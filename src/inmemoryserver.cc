@@ -51,16 +51,16 @@ using namespace std;
     }
     
     /*
-     * Creates a new article in news group ng.
-     * Returns true if the article was successfully added to ng.
+     * Adds a new article in news group ng.
+     * Returns the id number of the inserted article if successful,
+     * otherwise 0 if the newsgroup id coudln't be found.
      */
-    bool InMemoryServer::add_art(id ng, const shared_ptr<Article> &a) {
+    id InMemoryServer::add_art(id ng, const shared_ptr<Article> &a) {
         auto it = newsgroups.find(ng);
         if (it == newsgroups.end()) {
-          return false;
+          return 0;
         }
-        it->second.add_art(a);
-        return true;
+        return it->second.add_art(a);
     }
     
     /*

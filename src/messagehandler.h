@@ -6,13 +6,8 @@
 #include "connection.h"
 #include "connectionclosedexception.h"
 #include "illegalcommandexception.h"
-#include "newsgroupalreadyexistsexception.h"
-#include "newsgroupnonexistantexception.h"
-#include "articlenonexistantexception.h"
 
 using namespace std;
-
-//struct IllegalCommandException {};
 
 class MessageHandler {
 public:

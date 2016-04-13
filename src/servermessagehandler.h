@@ -1,6 +1,8 @@
 #ifndef SERVERMESSAGEHANDLER_H
 #define SERVERMESSAGEHANDLER_H
 
+#include "illegalcommandexception.h"
+
 
 class ServerMessageHandler {
 public:
