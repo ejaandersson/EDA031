@@ -17,7 +17,7 @@ public:
     id add_art(id, const std::shared_ptr<Article>&) override;
     bool delete_art(id, id) override;
     std::shared_ptr<const Article> read_art(id, id) const override;
-    bool exists_ng(id ng);
+    bool exists_ng(id ng) const;
     
 private:
     id number;

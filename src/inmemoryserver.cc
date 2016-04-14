@@ -89,7 +89,7 @@ using namespace std;
         return it->second.get_art(art);
     }
     
-    bool InMemoryServer::exists_ng(id ng) {
+    bool InMemoryServer::exists_ng(id ng) const {
       if (newsgroups.empty()) {
         return false;
       }
