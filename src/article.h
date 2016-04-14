@@ -15,8 +15,7 @@ public:
     const std::string& getText() const {return text;}
         
 private:
-    std::string title, author;
-    std::string text;
+    std::string title, author, text;
     
 };
 
