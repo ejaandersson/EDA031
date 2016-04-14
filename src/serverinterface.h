@@ -40,7 +40,7 @@ public:
     /*
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
-     * Returns an empty vector if no article exists or if any of the ids are invalid.
+     * Returns an empty vector if no article exists or if the id is invalid.
      */
     virtual std::vector<std::pair<id, std::string> > listArt(id ng) const = 0;
     
