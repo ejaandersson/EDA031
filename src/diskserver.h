@@ -23,6 +23,7 @@ private:
     std::string file;
     tinyxml2::XMLDocument xmlDoc;
     
+    void init_file();
     bool exists_ng(std::string&) const;
     tinyxml2::XMLElement* find_ng_tag(id ng, id art = 0) const;
 };

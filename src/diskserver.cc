@@ -6,6 +6,16 @@ using namespace tinyxml2;
     DiskServer::DiskServer(int port, string fileName) : ServerInterface(port), file(fileName) {
         
         if(!fileName.compare("")){
+            init_file();
+        }
+        else{
+            if(xmlDoc.LoadFile(file.c_str()) != XML_SUCCESS)
+                init_file();               
+        }
+    }
+
+    
+    void DiskServer::init_file(){
             file = "savexml.xml";
             XMLNode* root = xmlDoc.NewElement("newsserver");
             XMLElement* id_tag = xmlDoc.NewElement("newsgroup-id-count");
@@ -14,13 +24,8 @@ using namespace tinyxml2;
             xmlDoc.InsertFirstChild(root);
             root->InsertFirstChild(id_tag);
             xmlDoc.SaveFile(file.c_str());
-        }
-        else{
-            if(xmlDoc.LoadFile(file.c_str()) != XML_SUCCESS)
-                throw string("File not found.");                
-        }
     }
-
+    
     /*
      * Lists all the news groups on the server.
      * Returns a vector containing id numbers and names for all the news groups. 
