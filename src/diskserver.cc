@@ -4,17 +4,13 @@ using namespace std;
 using namespace tinyxml2;
     
     DiskServer::DiskServer(int port, string fileName) : ServerInterface(port), file(fileName) {
-        
-        if(!fileName.compare("")){
-            init_file();
-        }
-        else{
             if(xmlDoc.LoadFile(file.c_str()) != XML_SUCCESS)
                 init_file();               
-        }
     }
-
     
+    /*
+     * A private function that initialize a new empty xml database file
+     */
     void DiskServer::init_file(){
             file = "savexml.xml";
             XMLNode* root = xmlDoc.NewElement("newsserver");
