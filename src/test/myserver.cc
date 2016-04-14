@@ -1,11 +1,10 @@
 #include "inmemoryserver.h"
+#include "diskserver.h"
 #include "server.h"
 #include "connection.h"
 #include "connectionclosedexception.h"
 #include "messagehandler.h"
 #include "servermessagehandler.h"
-
-
 #include <memory>
 #include <iostream>
 #include <string>
@@ -30,7 +29,7 @@ int main(int argc, char* argv[]){
   }
   
   //If-sats som bestammer vilken typ av server.
-  InMemoryServer* s = new InMemoryServer(port);
+  DiskServer* s = new DiskServer(port);
   shared_ptr<ServerInterface> serverptr(s);
   
   if (!serverptr->isReady()) {
