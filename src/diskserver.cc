@@ -24,7 +24,8 @@ using namespace tinyxml2;
     
     /*
      * Lists all the news groups on the server.
-     * Returns a vector containing id numbers and names for all the news groups. 
+     * Returns a vector containing id numbers and names for all the news groups.
+     * Returns an empty vector if no newsgroup exists.
      */
     vector<std::pair<id,string> > DiskServer::list_ng() const{
         vector<pair<id,string> > v;
@@ -95,6 +96,7 @@ using namespace tinyxml2;
     /*
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
+     * Returns an empty vector if the newsgroup is empty or doesn't exist. 
      */
     std::vector<std::pair<id, std::string> > DiskServer::listArt(id ng) const{
         std::vector<std::pair<id, std::string> > v;
@@ -120,7 +122,7 @@ using namespace tinyxml2;
     }
     
     /*
-     * Adds a new article in news group ng.
+     * Adds a new article in newsgroup ng.
      * Returns true if the article was successfully added to ng.
      */
     id DiskServer::add_art(id ng, const std::shared_ptr<Article>& a){
@@ -174,9 +176,9 @@ using namespace tinyxml2;
     }
     
     /*
-     * Get an article.
+     * Gets an article.
      * Returns a pointer to the article.
-     * Returns nullptr if nothing was found.
+     * Returns nullptr if any of the ids are invalid.
      */
     shared_ptr<const Article> DiskServer::read_art(id ng, id art) const{
         
@@ -197,11 +199,32 @@ using namespace tinyxml2;
         return shared_ptr<const Article>(a);
     }
     
-    
+    /*
+     * Checks if the newsgroup exists by id.
+     * Returns true if it does.
+     */
     bool DiskServer::exists_ng(id nbr) const{
         return find_ng_tag(nbr) != nullptr;
     }
     
+    /*
+     * Checks if the newsgroup exists by name.
+     * Returns true if it does.
+     */
+    bool DiskServer::exists_ng(string &name) const{
+        for(auto &p : list_ng()){
+            if(!p.second.compare(name))
+                return true;
+        }
+        return false;
+    }
+    
+    /*
+     * A private function
+     * Fetches an an article tag
+     * Fetches a newsgroup tag if art is set to 0 or left unset.
+     * Returns the tag requested or nullptr if any id is invalid
+     */
     XMLElement* DiskServer::find_ng_tag(id ng, id art) const{
         const XMLNode* root = xmlDoc.FirstChild();
         const XMLElement* newsgroup_tag = root->FirstChildElement("newsgroup");
@@ -228,12 +251,6 @@ using namespace tinyxml2;
         return nullptr;
     }
     
-    bool DiskServer::exists_ng(string &name) const{
-        for(auto &p : list_ng()){
-            if(!p.second.compare(name))
-                return true;
-        }
-        return false;
-    }
+    
     
     
