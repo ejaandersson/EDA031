@@ -19,7 +19,7 @@ LDFLAGS   = -g -L..
 LDLIBS = -lclientserver
 
 # Targets
-PROGS = myserver #myclient
+PROGS = myserver myclient
 
 all: $(PROGS)
 
