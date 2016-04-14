@@ -19,12 +19,13 @@ public:
     bool delete_art(id, id) override;
     std::shared_ptr<const Article> read_art(id, id) const override;
     bool exists_ng(id nbr) const override;
+    bool exists_ng(std::string&) const;
+    
 private:
     std::string file;
     tinyxml2::XMLDocument xmlDoc;
     
     void init_file();
-    bool exists_ng(std::string&) const;
     tinyxml2::XMLElement* find_ng_tag(id ng, id art = 0) const;
 };
 
