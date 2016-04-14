@@ -10,7 +10,6 @@ using id = unsigned int;
 
 class Newsgroup {
 public:
-    
     Newsgroup(std::string n) : name(n), number(0) {};
     virtual ~Newsgroup(){};
     
