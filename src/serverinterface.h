@@ -66,7 +66,7 @@ public:
     * Checks if a newsgroup exists.
     * Returns true id it does.
     */
-    virtual bool exists_ng(id ng) = 0;
+    virtual bool exists_ng(id ng) const = 0;
     
 private:
 
