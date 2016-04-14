@@ -6,6 +6,8 @@
 #include "inmemoryserver.h"
 //#include "diskserver.h"
 
+#include <iostream>
+
 using namespace std;
 
 
@@ -110,7 +112,7 @@ void ServerMessageHandler::createArticle(void) {
 	int ngInt = msgH->getIntParam();
 	string title = msgH->getStrParam();
 	string author = msgH->getStrParam();
-	string text = msgH->getStrParam();
+	string text = msgH->getStrParam(); //kan va skumt
 	checkEnd();
 	msgH->sendCode(Protocol::ANS_CREATE_ART);
 	if (server->exists_ng(ngInt)) {

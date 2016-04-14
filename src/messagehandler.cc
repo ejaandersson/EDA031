@@ -38,9 +38,9 @@ Sends an int parameter following the Protocol
 */
 
 void MessageHandler::sendInt(int value) throw(ConnectionClosedException) {
-	sendByte((value << 24) & 0xFF);
-	sendByte((value << 16) & 0xFF);
-	sendByte((value << 8 ) & 0xFF);
+	sendByte((value >> 24) & 0xFF);
+	sendByte((value >> 16) & 0xFF);
+	sendByte((value >> 8 ) & 0xFF);
 	sendByte((value & 0xFF));
 }
 
