@@ -20,5 +20,6 @@ private:
     
 };
 
+
 #endif /* ARTICLE_H */
 
