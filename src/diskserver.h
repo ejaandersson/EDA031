@@ -8,7 +8,7 @@
 
 class DiskServer : public ServerInterface{
 public:
-    explicit DiskServer(int port, std::string fileName = "");
+    explicit DiskServer(int port, std::string fileName = "database.xml");
     virtual ~DiskServer(){};
     
     std::vector<std::pair<id,std::string>> list_ng() const override;
