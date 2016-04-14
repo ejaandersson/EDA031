@@ -1,11 +1,11 @@
 #ifndef SERVERINTERFACE_H
 #define	SERVERINTERFACE_H
 
-
 #include <string>
 #include <vector>
 #include <utility>
 #include <memory>
+
 #include "article.h"
 #include "server.h"
 
@@ -20,6 +20,7 @@ public:
     /*
      * Lists all the news groups on the server.
      * Returns a vector containing id numbers and names for all the news groups. 
+     * Returns an empty vector if no newsgroups exists. 
      */
     virtual std::vector<std::pair<id,std::string> > list_ng() const = 0;
     
@@ -39,6 +40,7 @@ public:
     /*
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
+     * Returns an empty vector if no article exists or if any of the ids are invalid.
      */
     virtual std::vector<std::pair<id, std::string> > listArt(id ng) const = 0;
     
@@ -64,7 +66,7 @@ public:
     
     /*
     * Checks if a newsgroup exists.
-    * Returns true id it does.
+    * Returns true if it does.
     */
     virtual bool exists_ng(id ng) const = 0;
     
