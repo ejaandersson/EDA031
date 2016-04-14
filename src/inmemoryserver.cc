@@ -4,7 +4,8 @@ using namespace std;
 
 /*
      * Lists all the news groups on the server.
-     * Returns a vector containing id numbers and names for all the news groups. 
+     * Returns a vector containing id numbers and names for all the news groups.
+     * Returns an empty vector if no newsgroup exists.
      */
     vector<pair<id,string>> InMemoryServer::list_ng() const {
         vector<pair<id,string>> v;
@@ -41,6 +42,7 @@ using namespace std;
     /*
      * Lists all the articles in a news group.
      * Returns a vector containing id numbers and names for all the articles. 
+     * Returns an empty vector if no article exists or if the the id is invalid.
      */
     vector<pair<id, string>> InMemoryServer::listArt(id ng) const {
         auto it = newsgroups.find(ng);
@@ -77,8 +79,7 @@ using namespace std;
     
     /*
      * Get an article.
-     * Returns an array (nopes: an Article ptr at the moment) containing title, author and text in that
-     *  order starting at position zero through two.
+     * Returns an pointer to the article
      * Returns nullptr if nothing was found
      */
     shared_ptr<const Article> InMemoryServer::read_art(id ng, id art) const {
@@ -89,6 +90,10 @@ using namespace std;
         return it->second.get_art(art);
     }
     
+    /*
+     * Checks if a newsgroup exists
+     * Returns true if it does.
+     */
     bool InMemoryServer::exists_ng(id ng) const {
       if (newsgroups.empty()) {
         return false;
