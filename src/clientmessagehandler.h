@@ -11,7 +11,6 @@
 
 class ClientMessageHandler {
 public:
-    //ClientMessageHandler();
     ClientMessageHandler(std::shared_ptr<MessageHandler>);
 		std::vector<std::string> listGroups() throw(ConnectionClosedException, IllegalCommandException);
 		int createGroup(std::string title) throw(ConnectionClosedException, IllegalCommandException);

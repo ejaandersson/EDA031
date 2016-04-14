@@ -18,9 +18,6 @@ Change connection.
 @param conn is the new Connection object
 
 */
-//void MessageHandler::newConnection(const Connection& conn) {
-//	this->conn = conn;
-//}
 
 /**
 Sends a code corresponding to a constant from the Protocol class.
@@ -116,7 +113,7 @@ string MessageHandler::getStrParam() throw(ConnectionClosedException, IllegalCom
 		throw IllegalCommandException("Get string parameter", Protocol::PAR_STRING, code);
 	}
 	int n = getInt();
-	if (n < 0) {
+	if (n < 1) {
 		throw IllegalCommandException("Get string parameter", "Number of characters below 0");
 	}
 	string result = "";

@@ -3,8 +3,6 @@
 
 using namespace std;
 
-//ClientMessageHandler::ClientMessageHandler(){}
-
 ClientMessageHandler::ClientMessageHandler(std::shared_ptr<MessageHandler> mh): messageHandler(mh) {}
 
 vector<string> ClientMessageHandler::listGroups() throw (ConnectionClosedException, IllegalCommandException){
@@ -80,12 +78,7 @@ vector<string> ClientMessageHandler::listArticles(int groupId) throw (Connection
     checkCondition(code == Protocol::ANS_NAK, "Create group",
                    "Did not receive ANS_ACK or ANS_NAK");
     code = messageHandler->getCode(); // error code
-    messageHandler->getCode(); // hopefully ANS_NAK, not checked
-    //if (code == Protocol::ERR_NG_DOES_NOT_EXIST) {
-    //  return vector<string>();
-    //} else { //artikeln finns inte
-    //  return 
-    //}
+    messageHandler->getCode();
     return vector<string>();
   }
   int nbrArticles = messageHandler->getIntParam();
@@ -167,7 +160,7 @@ vector<string> ClientMessageHandler::getArticle(int groupId, int articleId) thro
                    "Did not receive ANS_ACK or ANS_NAK");
     code = messageHandler->getCode();
     checkCode("Delete article", Protocol::ANS_END, messageHandler->getCode());
-    if (code == Protocol::ERR_NG_DOES_NOT_EXIST) {
+    if (code == Protocol::ERR_NG_DOES_NOT_EXIST || code == Protocol::ERR_ART_DOES_NOT_EXIST) {
       return vector<string>();
     }
   } else {
@@ -185,7 +178,6 @@ vector<string> ClientMessageHandler::getArticle(int groupId, int articleId) thro
 void ClientMessageHandler::checkCode(string method, int expectedCode, int code) throw(IllegalCommandException){
   if (code != expectedCode) {
     throw IllegalCommandException(method, expectedCode, code);
-    
   }
 }
 

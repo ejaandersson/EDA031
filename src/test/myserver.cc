@@ -14,7 +14,6 @@
 using namespace std;
 
 int main(int argc, char* argv[]){
-  //Ska vara 3 argument dar tredje anger vilken typ av server.
   if (argc != 2) {
     cerr << "Usage: myserver port-number" << endl;
     exit(1);
@@ -28,13 +27,28 @@ int main(int argc, char* argv[]){
     exit(1);
   }
   
-  //If-sats som bestammer vilken typ av server.
-  DiskServer* s = new DiskServer(port);
+  string servertype;
+  cout << "Choose server type: " << endl;
+  cout << "1. InMemoryServer" << endl;
+  cout << "2. DiskServer" << endl;
+  cin >> servertype;
+  
+  ServerInterface* s;
+  if (servertype.compare("1") == 0) {
+    s = new InMemoryServer(port);
+  } else if (servertype.compare("2") == 0) {
+    s = new DiskServer(port, "savexml.xml");
+  } else {
+    cerr << "Invalid server choise." << endl;
+  }
+  
   shared_ptr<ServerInterface> serverptr(s);
   
   if (!serverptr->isReady()) {
     cerr << "Server initialization error." << endl;
     exit(1);
+  } else {
+    cout << "Server is ready." << endl;
   }
   
   while (true) {

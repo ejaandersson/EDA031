@@ -12,9 +12,6 @@
 class MessageHandler {
 public:
 	explicit MessageHandler(std::shared_ptr<Connection>);
-  
-	
-	//void newConnection(const Connection& conn);
 	
 	void sendCode(int code) throw(ConnectionClosedException);
 	void sendByte(int code) throw(ConnectionClosedException);

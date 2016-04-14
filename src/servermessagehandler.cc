@@ -4,7 +4,7 @@
 #include "servermessagehandler.h"
 #include "protocol.h"
 #include "inmemoryserver.h"
-//#include "diskserver.h"
+#include "diskserver.h"
 
 #include <iostream>
 
@@ -103,16 +103,13 @@ void ServerMessageHandler::listArticles(void) {
 			msgH->sendStrParam(it->second);
 		}
 	}
-	//} else {
-	  //msgH->sendCode(Protocol::ANS_NAK);
-	  //msgH->sendCode(Protocol::ERR_ART_DOES_NOT_EXIST);
 }
 
 void ServerMessageHandler::createArticle(void) {
 	int ngInt = msgH->getIntParam();
 	string title = msgH->getStrParam();
 	string author = msgH->getStrParam();
-	string text = msgH->getStrParam(); //kan va skumt
+	string text = msgH->getStrParam();
 	checkEnd();
 	msgH->sendCode(Protocol::ANS_CREATE_ART);
 	if (server->exists_ng(ngInt)) {
