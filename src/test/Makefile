@@ -35,6 +35,10 @@ myclient: myclient.o
 clean:
 	rm -f *.o $(PROGS)
 
+install:
+	rm -f *.o
+	mv $(PROGS) ../../bin/
+
 # Generate dependencies in *.d files
 %.d: %.cc
 	@set -e; rm -f $@; \
