@@ -13,7 +13,7 @@ using namespace std;
 
 ServerMessageHandler::ServerMessageHandler(shared_ptr<MessageHandler> msgHandler, shared_ptr<ServerInterface> s) : msgH(msgHandler), server(s) {}
 
-int ServerMessageHandler::newMessage(void) throw(IllegalCommandException){
+int ServerMessageHandler::newMessage(void) throw(IllegalCommandException, ConnectionClosedException){
 	uint command = msgH->getCode();
 	switch (command) {
 		case Protocol::COM_LIST_NG:
